@@ -1,0 +1,15 @@
+body{
+    height: 100%;
+    width: 100%;
+}
+.Images{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+img{
+    height: 300px;
+    width: 300px;
+}
