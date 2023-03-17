@@ -2,10 +2,12 @@ body{
     height: 100%;
     width: 100%;
 }
-.Images{
+
+#RegularImagesDiv{
     display: none;
 }
-.show{
+
+#DisplayImagesDiv{
     display: block;
 }
 
