@@ -32,7 +32,7 @@ let PicGenerator = function () {
     this.pic = function (randomIndex) {
         for (let k = 0; k < imagesSection.length; k++) {
 
-
+            
             for (let i = 0; i < 3; i++) {
                 if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
                     choosenPic = []
@@ -41,14 +41,16 @@ let PicGenerator = function () {
                     //return choosenPic;
                     // let newrandomIndex = Math.ceil(Math.random() * 15)
                     // // choosenPic.push(newrandomIndex)
-                    // console.log("Two number are the same!!!", choosenPic);
+                    //console.log("Two were number the same!!!", choosenPic);
                     // choosenPic[i] = newrandomIndex;
                 }
             }
-            if (k === randomIndex || k === randomIndex) {
+            if (k === randomIndex) {
                 DisplayDiv.append(imagesSection[k]);
                 console.log("this is the class of the Display div", imagesSection[k]);
             }
+            
+           
             
         }
         
