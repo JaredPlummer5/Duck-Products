@@ -2,16 +2,18 @@ let imagesSection = document.querySelectorAll(".Images");
 //console.log(imagesSection);
 let ImageDiv = document.querySelector("#RegularImagesDiv");
 let DisplayDiv = document.querySelector("#DisplayImagesDiv");
+const imagesPath = "./assets";
+const imageNames = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg","bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
+const images = [];
 
-// const imagesPath = "./assets";
-// const imageNames = ["bag.jpg", "banana.jpg", "assets/bathroom.jpg"];
-// const images = [];
-
-// for (let i = 0; i < imageNames.length; i++) {
-//   const image = new Image();
-//   image.src = `${imagesPath}/${imageNames[i]}`;
-//   images.push(image);
-// }
+for (let i = 0; i < imageNames.length; i++) {
+  const image = new Image();
+  //image.ELEMENT_NODE = "img"
+  //console.log(image.ELEMENT_NODE)
+  image.src = `${imagesPath}/${imageNames[i]}`;
+  images.push(image);
+}
+console.log(images)
 
 // use the images array to work with the loaded images
 
@@ -29,7 +31,7 @@ let PicGenerator = function () {
         }
     }
   
-    this.ifItHasTheSamePicIndex = function (randomIndex) {
+    this.ifItHasTheSamePicIndexAndRenderPic = function (randomIndex) {
         
         for (let i = 0; i < 3; i++) {
             if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
@@ -49,7 +51,7 @@ let PicGenerator = function () {
 }
 
 let PopUpPic = new PicGenerator()
-PopUpPic.ifItHasTheSamePicIndex();
+PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
 
 
 
