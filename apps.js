@@ -23,43 +23,33 @@ let PicGenerator = function () {
     //this.productName = productName
     this.GetRandomPicIndex = function () {
         for (let i = 0; i < 3; i++) {
-            let randomIndex = Math.ceil(Math.random() * 15);
+            let randomIndex = Math.ceil(Math.random() * 18);
             choosenPic.push(randomIndex);
-            //console.log(choosenPic)
-            //return randomIndex;
+            
         }
     }
-    this.pic = function (randomIndex) {
-        for (let k = 0; k < imagesSection.length; k++) {
-
-            
-            for (let i = 0; i < 3; i++) {
-                if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
-                    choosenPic = []
-                    this.GetRandomPicIndex(randomIndex);
-                    console.log(choosenPic);
-                    //return choosenPic;
-                    // let newrandomIndex = Math.ceil(Math.random() * 15)
-                    // // choosenPic.push(newrandomIndex)
-                    //console.log("Two were number the same!!!", choosenPic);
-                    // choosenPic[i] = newrandomIndex;
-                }
+  
+    this.ifItHasTheSamePicIndex = function (randomIndex) {
+        
+        for (let i = 0; i < 3; i++) {
+            if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
+                choosenPic.splice(0, choosenPic.length);
+                this.GetRandomPicIndex(randomIndex);
+                console.log(choosenPic);
+                
+                
             }
-            if (k === randomIndex) {
-                DisplayDiv.append(imagesSection[k]);
-                console.log("this is the class of the Display div", imagesSection[k]);
-            }
-            
-           
-            
+            DisplayDiv.append(imagesSection[choosenPic[i]]);
         }
+      
+        
         
     }
     
 }
 
 let PopUpPic = new PicGenerator()
-PopUpPic.pic();
+PopUpPic.ifItHasTheSamePicIndex();
 
 
 
