@@ -1,18 +1,18 @@
 let DisplayDiv = document.querySelector("#DisplayImagesDiv");
 
-timesClicked = 0;
+
+
 let choosenPic = []
-
-
 let imageNames = []
 let images = [];
+let timesClicked = 0;
 
 
 let DuckProduct = function (productName, productUrlPath, timesClicked, timesSeen) {
-    this.timesClicked = 0;
-    this.timesSeen = 0;
+    this.timesClicked = timesClicked;
     this.productName = productName;
     this.productUrlPath = productUrlPath;
+    this.timesSeen = timesSeen;
     
 }
 
@@ -29,7 +29,6 @@ function RenderPics () {
         
         
     }
-    
     
 }
 RenderPics();
@@ -66,7 +65,7 @@ function ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
             console.log(choosenPic);
         }
         DisplayDiv.append(images[choosenPic[i]]);
-        this.timesSeen++;
+        
        
     }
 
@@ -82,14 +81,13 @@ function GetRandomPicIndex () {
             // .includes() method is used to check if an array includes a certain value, 
             // and returns a boolean value (true or false) 
             // to indicate whether the value is found or not.
-
             choosenPic.push(randomIndex);
         }
     }
 }
 
-ifItHasTheSamePicIndexAndRenderPic ();
 GetRandomPicIndex();
+ifItHasTheSamePicIndexAndRenderPic ();
 
 for (let j = 0; j < imageNames.length; j++) {
     let bag = new DuckProduct(imageNames[j].split(".")[0], images[j], 0, 0);
@@ -98,9 +96,18 @@ for (let j = 0; j < imageNames.length; j++) {
 console.log(images);
 
 function ChoosenPicCounter(e) {
-    e.target.nodeName;
+
+    e.target;
+    GetRandomPicIndex();
+    let indexForImage1 = choosenPic[0];
+    let indexForImage2 = choosenPic[1];
+    let indexForImage3 = choosenPic[2];
+    
+    
+    
+    ifItHasTheSamePicIndexAndRenderPic(indexForImage1,indexForImage2,indexForImage3);
     timesClicked++;
-    //console.log(timesClicked)
+    console.log(e.target.nodeName)
     if (e.target.nodeName !== "IMG") {
         timesClicked--;
         alert("please click on a Picture")
@@ -123,5 +130,4 @@ DisplayDiv.addEventListener("click", ChoosenPicCounter);
 
 
 
-
-    //use the images array to work with the loaded images
+//use the images array to work with the loaded images
