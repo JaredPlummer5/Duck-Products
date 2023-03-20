@@ -3,6 +3,7 @@ let DisplayDiv = document.querySelector("#DisplayImagesDiv");
 timesClicked = 0;
 let choosenPic = []
 
+
 let imageNames = []
 let images = [];
 
@@ -113,8 +114,6 @@ function ChoosenPicCounter(e) {
 }
 
 
-let PopUpPic = new PicGenerator()
-PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
 
 DisplayDiv.addEventListener("click", ChoosenPicCounter);
 
