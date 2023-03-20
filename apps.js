@@ -2,8 +2,8 @@ let DisplayDiv = document.querySelector("#DisplayImagesDiv");
 
 timesClicked = 0;
 let choosenPic = []
-<
-llet DuckProduct = function () {
+
+let DuckProduct = function () {
     this.RenderPics = function () {
         this.imagesPath = "./assets";
         this.imageNames = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
@@ -102,8 +102,6 @@ function ChoosenPicCounter(e) {
 }
 
 
-let PopUpPic = new PicGenerator()
-PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
 
 DisplayDiv.addEventListener("click", ChoosenPicCounter);
 
