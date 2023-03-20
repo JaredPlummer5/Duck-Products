@@ -8,11 +8,11 @@ let images = [];
 let timesClicked = 0;
 
 
-let DuckProduct = function (productName, productUrlPath, timesClicked, timesSeen) {
-    this.timesClicked = timesClicked;
+let DuckProduct = function (productName, productUrlPath) {
+    this.timesClicked = 0;
     this.productName = productName;
     this.productUrlPath = productUrlPath;
-    this.timesSeen = timesSeen;
+    this.timesSeen = 0;
     
 }
 
