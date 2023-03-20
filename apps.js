@@ -45,22 +45,4 @@ let PopUpPic = new PicGenerator()
 PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
 
 
-//this.filePath = this.filePath;
-//this.productName = productName
-
-
-// const imagesPath = "./assets";
-// const imageNames = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg","bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
-// const images = [];
-
-// for (let i = 0; i < imageNames.length; i++) {
-//   const image = new Image();
-//   //image.ELEMENT_NODE = "img"
-//   //console.log(image.ELEMENT_NODE)
-//   image.src = `${imagesPath}/${imageNames[i]}`;
-//   images.push(image);
-// }
-// console.log(images)
-
-// use the images array to work with the loaded images
 
