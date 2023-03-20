@@ -3,7 +3,6 @@ let DisplayDiv = document.querySelector("#DisplayImagesDiv");
 
 timesClicked = 0;
 let choosenPic = []
-let imageNamesUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
 let imageNames = []
 let images = [];
 
@@ -12,11 +11,15 @@ let DuckProduct = function (productName, productUrlPath, timesClicked, timesSeen
     this.timesSeen = 0;
     this.productName = productName;
     this.productUrlPath = productUrlPath;
-
+    
 }
-function imgTagGenerator() {
 
+function RenderPics () {
     let imagesPath = "./assets";
+    
+    let imageNamesUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
+    
+
     for (let i = 0; i < imageNamesUrl.length; i++) {
         let imgTag = document.createElement('img');
         let fullImageTagPath = `${imagesPath}/${imageNamesUrl[i]}`;
@@ -24,9 +27,12 @@ function imgTagGenerator() {
         images.push(imgTag);
 
     }
-}
 
-function  ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
+
+}
+RenderPics();
+
+function ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
 
     DisplayDiv.innerHTML = "";
     for (let i = 0; i < 3; i++) {
@@ -59,13 +65,13 @@ function GetRandomPicIndex () {
 }
 
 ifItHasTheSamePicIndexAndRenderPic ();
-GetRandomPicIndex ();
-imgTagGenerator();
-for (let j = 0; j < imageNamesUrl.length; j++) {
-    let bag = new DuckProduct(imageNamesUrl[j].split(".")[0], images[j], 0, 0);
+GetRandomPicIndex();
+
+for (let j = 0; j < imageNames.length; j++) {
+    let bag = new DuckProduct(imageNames[j].split(".")[0], images[j], 0, 0);
     imageNames.push(bag);
 }
-console.log(imageNames);
+console.log(images);
 
 function ChoosenPicCounter(e) {
     e.target;
