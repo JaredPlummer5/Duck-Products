@@ -7,22 +7,23 @@ let imageNamesUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "brea
 let imageNames = []
 let images = [];
 
+let DuckProduct = function (productName, productUrlPath, timesClicked, timesSeen) {
+    this.timesClicked = 0;
+    this.timesSeen = 0;
+    this.productName = productName;
+    this.productUrlPath = productUrlPath;
+
+}
 function imgTagGenerator() {
 
     let imagesPath = "./assets";
-    for (let i = 0; i < imageNames.length; i++) {
+    for (let i = 0; i < imageNamesUrl.length; i++) {
         let imgTag = document.createElement('img');
-        let fullImageTagPath = `${imagesPath}/${imageNames[i]}`;
+        let fullImageTagPath = `${imagesPath}/${imageNamesUrl[i]}`;
         imgTag.setAttribute("src", fullImageTagPath);
         images.push(imgTag);
 
     }
-}
-let DuckProduct = function (productName) {
-    this.timesClicked = 0;
-    this.timesSeen = 0;
-    this.productName = productName;
-
 }
 
 function  ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
@@ -35,6 +36,7 @@ function  ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
             console.log(choosenPic);
         }
         DisplayDiv.append(images[choosenPic[i]]);
+        this.timesSeen++;
        
     }
 
@@ -56,17 +58,17 @@ function GetRandomPicIndex () {
     }
 }
 
+ifItHasTheSamePicIndexAndRenderPic ();
+GetRandomPicIndex ();
+imgTagGenerator();
 for (let j = 0; j < imageNamesUrl.length; j++) {
-    let bag = new DuckProduct(imageNamesUrl[j].split(".")[0], );
+    let bag = new DuckProduct(imageNamesUrl[j].split(".")[0], images[j], 0, 0);
     imageNames.push(bag);
 }
 console.log(imageNames);
 
 function ChoosenPicCounter(e) {
     e.target;
-    ifItHasTheSamePicIndexAndRenderPic (randomIndex);
-    GetRandomPicIndex ();
-    imgTagGenerator();
     timesClicked++;
     //console.log(timesClicked)
     if (e.target.nodeName !== "IMG") {
