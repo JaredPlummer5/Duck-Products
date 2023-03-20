@@ -98,7 +98,7 @@ for (let j = 0; j < imageNames.length; j++) {
 console.log(images);
 
 function ChoosenPicCounter(e) {
-    e.target;
+    e.target.nodeName;
     timesClicked++;
     //console.log(timesClicked)
     if (e.target.nodeName !== "IMG") {
