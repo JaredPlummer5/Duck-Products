@@ -15,3 +15,7 @@ img{
     height: 300px;
     width: 300px;
 }
+
+#myChart{
+    border: 1px solid black;
+}
