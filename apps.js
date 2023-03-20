@@ -18,13 +18,11 @@ let PicGenerator = function () {
             let fullImageTagPath = `${this.imagesPath}/${this.imageNames[i]}`;
             imgTag.setAttribute("src", fullImageTagPath);
             this.images.push(imgTag);
-            //DisplayDiv.append(imgTag);
         }
-
-        console.log(this.images);
 
     }
     this.GetRandomPicIndex = function () {
+        choosenPic = [];
         while (choosenPic.length < 3) {
             let randomIndex = Math.ceil(Math.random() * 18);
             //This checks if the randomIndex is already in the choosenPic array. 
@@ -33,7 +31,6 @@ let PicGenerator = function () {
                 // .includes() method is used to check if an array includes a certain value, 
                 // and returns a boolean value (true or false) 
                 // to indicate whether the value is found or not.
-                console.log(choosenPic.includes(randomIndex))
 
                 choosenPic.push(randomIndex);
             }
@@ -43,6 +40,7 @@ let PicGenerator = function () {
 
     this.ifItHasTheSamePicIndexAndRenderPic = function (randomIndex) {
 
+        DisplayDiv.innerHTML = "";
         for (let i = 0; i < 3; i++) {
             if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
                 choosenPic.splice(0, choosenPic.length);
@@ -59,8 +57,14 @@ let PicGenerator = function () {
 }
 
 let PopUpPic = new PicGenerator()
-PopUpPic.RenderPics();
-PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
+
+let ViewPicturesBtn = document.querySelector("#SubBtn");
+ViewPicturesBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    PopUpPic.GetRandomPicIndex();
+    PopUpPic.RenderPics();
+    PopUpPic.ifItHasTheSamePicIndexAndRenderPic();
+});
 
 
 
