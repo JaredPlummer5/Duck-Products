@@ -1,78 +1,66 @@
 let DisplayDiv = document.querySelector("#DisplayImagesDiv");
-
-timesClicked = 0;
 let choosenPic = []
-
-
 let imageNames = []
 let images = [];
+let timesClickedForTheDiv = 0;
+let imageNamesUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
+let timesClicked = 0;
 
 
-let DuckProduct = function (productName, productUrlPath, timesClicked, timesSeen) {
+let DuckProduct = function (productName, productUrlPath) {
     this.timesClicked = 0;
-    this.timesSeen = 0;
     this.productName = productName;
     this.productUrlPath = productUrlPath;
-    
+    this.timesSeen = 0;
 }
 
-
-function RenderPics () {
+function RenderPics() {
     let imagesPath = "./assets";
-    
-    let imageNamesUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
     for (let i = 0; i < imageNamesUrl.length; i++) {
         let imgTag = document.createElement('img');
         let fullImageTagPath = `${imagesPath}/${imageNamesUrl[i]}`;
         imgTag.setAttribute("src", fullImageTagPath);
         images.push(imgTag);
-        
-        
+
     }
-    
-    
 }
 RenderPics();
-    GetRandomPicIndex = function () {
-        choosenPic = [];
 
+for (let j = 0; j < imageNamesUrl.length; j++) {
 
-        while (choosenPic.length < 3) {
-            let randomIndex = Math.ceil(Math.random() * 18);
-            //This checks if the randomIndex is already in the choosenPic array. 
-            //If it is not already in the array, the code inside the if statement will execute.
-            if (!choosenPic.includes(randomIndex)) {
-                // .includes() method is used to check if an array includes a certain value, 
-                // and returns a boolean value (true or false) 
-                // to indicate whether the value is found or not.
+    let imgTag = images[j];
+    let product = new DuckProduct(imageNamesUrl[j].split(".")[0], imgTag);
+    imageNames.push(product);
+    function PressingTheImageEventListener() {
+        product.timesClicked++;
+        console.log(`${product.productName} has been clicked ${product.timesClicked} times`);
 
-
-                choosenPic.push(randomIndex);
-            }
+        if (timesClickedForTheDiv >= 25) {
+            imgTag.removeEventListener('click', PressingTheImageEventListener);
         }
     }
-
-
-   
-
-
-function ifItHasTheSamePicIndexAndRenderPic (randomIndex) {
-
-    DisplayDiv.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
-        if (choosenPic[0] == choosenPic[1] || choosenPic[1] == choosenPic[2] || choosenPic[2] == choosenPic[0]) {
-            choosenPic.splice(0, choosenPic.length);
-            GetRandomPicIndex(randomIndex);
-            console.log(choosenPic);
-        }
-        DisplayDiv.append(images[choosenPic[i]]);
-        this.timesSeen++;
-       
-    }
-
+    imgTag.addEventListener('click', PressingTheImageEventListener);
 
 }
-function GetRandomPicIndex () {
+console.log(imageNames);
+function ifItHasTheSamePicIndexAndRenderPic() {
+    DisplayDiv.innerHTML = "";
+    // Check if the chosen images are the same and regenerate indices if needed
+    while (choosenPic[0] === choosenPic[1] || choosenPic[1] === choosenPic[2] || choosenPic[2] === choosenPic[0]) {
+        choosenPic.splice(0, choosenPic.length);
+        GetRandomPicIndex();
+    }
+    // Append the images to the DisplayDiv
+    for (let i = 0; i < 3; i++) {
+        //console.log(images[choosenPic[i]]);
+        DisplayDiv.append(images[choosenPic[i]]);
+
+        // Increment the timesSeen property for the displayed image
+        imageNames[choosenPic[i]].timesSeen++;
+        //console.log(`${imageNames[choosenPic[i]]} has been seen ${TimesPicHaveBeenSeen} times`)
+    }
+}
+function GetRandomPicIndex() {
     choosenPic = [];
     while (choosenPic.length < 3) {
         let randomIndex = Math.ceil(Math.random() * 18);
@@ -82,46 +70,44 @@ function GetRandomPicIndex () {
             // .includes() method is used to check if an array includes a certain value, 
             // and returns a boolean value (true or false) 
             // to indicate whether the value is found or not.
-
             choosenPic.push(randomIndex);
         }
     }
+    //console.log(choosenPic);
 }
-
-ifItHasTheSamePicIndexAndRenderPic ();
 GetRandomPicIndex();
+ifItHasTheSamePicIndexAndRenderPic();
 
-for (let j = 0; j < imageNames.length; j++) {
-    let bag = new DuckProduct(imageNames[j].split(".")[0], images[j], 0, 0);
-    imageNames.push(bag);
+function ResultsList() {
+    let ResultsContainer = document.createElement("ul");
+    for (let i = 0; i < imageNames.length; i++) {
+        let ListItems = document.createElement("li");
+        ListItems.innerHTML = `${imageNames[i].productName} has been seen ${imageNames[i].timesSeen} times and ${imageNames[i].timesClicked} has been clicked ${imageNames[i].timesClicked} times`;
+        ResultsContainer.append(ListItems);
+    }
+    DisplayDiv.innerHTML = "";
+    DisplayDiv.append(ResultsContainer);
 }
-console.log(images);
 
 function ChoosenPicCounter(e) {
-    e.target;
-    timesClicked++;
-    //console.log(timesClicked)
-    if (e.target.nodeName !== "IMG") {
-        timesClicked--;
-        alert("please click on a Picture")
-    }
-    if (timesClicked >= 25) {
+    GetRandomPicIndex();
+    let indexForImage1 = choosenPic[0];
+    let indexForImage2 = choosenPic[1];
+    let indexForImage3 = choosenPic[2];
+    ifItHasTheSamePicIndexAndRenderPic(indexForImage1, indexForImage2, indexForImage3);
+    timesClickedForTheDiv++;
+    if (timesClickedForTheDiv > 25) {
         DisplayDiv.removeEventListener("click", ChoosenPicCounter);
+        DisplayDiv.innerHTML = ''
+        let ViewResultsBtn = document.querySelector("#SubBtn")
+
+        ViewResultsBtn.addEventListener("click", ResultsList)
+
 
     }
-    
-    
 }
 
 
 
 DisplayDiv.addEventListener("click", ChoosenPicCounter);
 
-
-
-
-
-
-
-
-    //use the images array to work with the loaded images
