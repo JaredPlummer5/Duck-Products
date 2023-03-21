@@ -13,6 +13,7 @@ let DuckProduct = function (productName, productUrlPath) {
     this.productUrlPath = productUrlPath;
     this.timesSeen = 0;
 }
+
 function RenderPics() {
     let imagesPath = "./assets";
     for (let i = 0; i < imageNamesUrl.length; i++) {
@@ -20,25 +21,26 @@ function RenderPics() {
         let fullImageTagPath = `${imagesPath}/${imageNamesUrl[i]}`;
         imgTag.setAttribute("src", fullImageTagPath);
         images.push(imgTag);
-        
+
     }
 }
 RenderPics();
+
 for (let j = 0; j < imageNamesUrl.length; j++) {
-    
-        let imgTag = images[j];
-        let product = new DuckProduct(imageNamesUrl[j].split(".")[0], imgTag);
-        imageNames.push(product);
-        function PressingTheImageEventListener(){
-            product.timesClicked++;
-            console.log(`${product.productName} has been clicked ${product.timesClicked} times`);
-            
-            if (timesClickedForTheDiv >= 25) {
-                imgTag.removeEventListener('click', PressingTheImageEventListener);
-            }
+
+    let imgTag = images[j];
+    let product = new DuckProduct(imageNamesUrl[j].split(".")[0], imgTag);
+    imageNames.push(product);
+    function PressingTheImageEventListener() {
+        product.timesClicked++;
+        console.log(`${product.productName} has been clicked ${product.timesClicked} times`);
+
+        if (timesClickedForTheDiv >= 25) {
+            imgTag.removeEventListener('click', PressingTheImageEventListener);
         }
-        imgTag.addEventListener('click', PressingTheImageEventListener);
-    
+    }
+    imgTag.addEventListener('click', PressingTheImageEventListener);
+
 }
 console.log(imageNames);
 function ifItHasTheSamePicIndexAndRenderPic() {
@@ -47,7 +49,6 @@ function ifItHasTheSamePicIndexAndRenderPic() {
     while (choosenPic[0] === choosenPic[1] || choosenPic[1] === choosenPic[2] || choosenPic[2] === choosenPic[0]) {
         choosenPic.splice(0, choosenPic.length);
         GetRandomPicIndex();
-        //console.log("I'm running");
     }
     // Append the images to the DisplayDiv
     for (let i = 0; i < 3; i++) {
@@ -55,7 +56,7 @@ function ifItHasTheSamePicIndexAndRenderPic() {
         DisplayDiv.append(images[choosenPic[i]]);
 
         // Increment the timesSeen property for the displayed image
-        //let TimesPicHaveBeenSeen = imageNames[choosenPic[i]].timesSeen++;
+        imageNames[choosenPic[i]].timesSeen++;
         //console.log(`${imageNames[choosenPic[i]]} has been seen ${TimesPicHaveBeenSeen} times`)
     }
 }
@@ -76,6 +77,18 @@ function GetRandomPicIndex() {
 }
 GetRandomPicIndex();
 ifItHasTheSamePicIndexAndRenderPic();
+
+function ResultsList() {
+    let ResultsContainer = document.createElement("ul");
+    for (let i = 0; i < imageNames.length; i++) {
+        let ListItems = document.createElement("li");
+        ListItems.innerHTML = `${imageNames[i].productName} has been seen ${imageNames[i].timesSeen} times and ${imageNames[i].timesClicked} has been clicked ${imageNames[i].timesClicked} times`;
+        ResultsContainer.append(ListItems);
+    }
+    DisplayDiv.innerHTML = "";
+    DisplayDiv.append(ResultsContainer);
+}
+
 function ChoosenPicCounter(e) {
     GetRandomPicIndex();
     let indexForImage1 = choosenPic[0];
@@ -83,11 +96,18 @@ function ChoosenPicCounter(e) {
     let indexForImage3 = choosenPic[2];
     ifItHasTheSamePicIndexAndRenderPic(indexForImage1, indexForImage2, indexForImage3);
     timesClickedForTheDiv++;
-    if (timesClickedForTheDiv >= 25) {
+    if (timesClickedForTheDiv > 25) {
         DisplayDiv.removeEventListener("click", ChoosenPicCounter);
+        DisplayDiv.innerHTML = ''
+        let ViewResultsBtn = document.querySelector("#SubBtn")
+
+        ViewResultsBtn.addEventListener("click", ResultsList)
+
+
     }
 }
 
+
+
 DisplayDiv.addEventListener("click", ChoosenPicCounter);
 
-//use the images array to work with the loaded images

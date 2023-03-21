@@ -3,17 +3,18 @@ body{
     width: 100%;
 }
 
-#RegularImagesDiv{
-    display: none;
-}
-
 #DisplayImagesDiv{
-    display: block;
+    display:flex;
+    justify-content: space-evenly;
+    
+
 }
 
 img{
+
     height: 300px;
     width: 300px;
+    
 }
 
 #myChart{
