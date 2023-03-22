@@ -1,12 +1,16 @@
-body{
-    height: 100%;
+
+body{    
     width: 100%;
+    height: 100%;
+    background: linear-gradient(#FFF554, #ecdf7d);
 }
 
 #DisplayImagesDiv{
     display:flex;
     justify-content: space-evenly;
     
+    width: 100%;
+    height: 390px;
 
 }
 
@@ -17,6 +21,21 @@ img{
     
 }
 
-#myChart{
+button{
+    height: 50px;
+    width: 100px;
+}
+
+#BtnDiv{
+    height: 300px;
+    width: 300px;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#ContainerDivBtn{
+    display: flex;
+    justify-content: center;
+
 }
