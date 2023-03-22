@@ -1,17 +1,21 @@
 let DisplayDiv = document.querySelector("#DisplayImagesDiv");
-let choosenPic = []
-let productObjects = []
+let choosenPic = [];
+let productObjects = [];
 let images = [];
 let timesClickedForTheDiv = 0;
 let productObjectsUrl = ["bag.jpg", "banana.jpg", "bathroom.jpg", "boots.jpg", "breakfast.jpg", "bubblegum.jpg", "chair.jpg", "cthulhu.jpg", "dog-duck.jpg", "dragon.jpg", "pen.jpg", "pet-sweep.jpg", "scissors.jpg", "shark.jpg", "sweep.png", "tauntaun.jpg", "unicorn.jpg", "water-can.jpg", "wine-glass.jpg"];
 let timesClicked = 0;
+
+
 let DuckProduct = function (productName, productUrlPath) {
     this.timesClicked = 0;
     this.productName = productName;
     this.productUrlPath = productUrlPath;
     this.timesSeen = 0;
 }
-function RenderPics() {
+
+
+function CreatingImageTags() {
     let imagesPath = "./assets";
     for (let i = 0; i < productObjectsUrl.length; i++) {
         let imgTag = document.createElement('img');
@@ -21,21 +25,47 @@ function RenderPics() {
 
     }
 }
-RenderPics();
-for (let j = 0; j < productObjectsUrl.length; j++) {
-    let imgTag = images[j];
-    let product = new DuckProduct(productObjectsUrl[j].split(".")[0], imgTag);
-    productObjects.push(product);
+CreatingImageTags();
 
-    function PressingTheImageEventListener() {
-        product.timesClicked++;
-        console.log(`${product.productName} has been clicked ${product.timesClicked} times`);
 
-        if (timesClickedForTheDiv >= 25) {
-            imgTag.removeEventListener('click', PressingTheImageEventListener);
+
+if (localStorage["productObjects"]) {
+    let GetObjectArray = localStorage.getItem('productObjects');
+    productObjects = JSON.parse(GetObjectArray);
+} else {
+    for (let j = 0; j < productObjectsUrl.length; j++) {
+        let imgTag = productObjectsUrl[j];
+        console.log(imgTag);
+        let product = new DuckProduct(productObjectsUrl[j].split(".")[0], imgTag);
+        productObjects.push(product);
+    }
+
+
+}
+
+
+DisplayDiv.addEventListener('click', PressingTheImageEventListener);
+function PressingTheImageEventListener(e) {
+    let imagesPath = "./assets";
+    if (timesClickedForTheDiv >= 25) {
+        DisplayDiv.removeEventListener('click', PressingTheImageEventListener);
+    }
+    if (e.target.nodeName === "IMG") {
+        e.target.getAttribute('src');
+        for (let i = 0; i < productObjects.length; i++) {
+            //console.log(e.target.getAttribute('src'),`${imagesPath}/${productObjectsUrl[i]}`);
+            if (e.target.getAttribute('src') == `${imagesPath}/${productObjectsUrl[i]}`) {
+                //console.log(productObjects[i]);
+                productObjects[i].timesClicked++;
+            }
         }
     }
-    imgTag.addEventListener('click', PressingTheImageEventListener);
+
+
+    localStorage.setItem('productObjects', JSON.stringify(productObjects));
+
+    //console.log(`${product.productName} has been clicked ${product.timesClicked} times`);
+
 }
 console.log(productObjects);
 
@@ -46,7 +76,7 @@ let previousSetIndexes = [];//new variable previousSetIndexes to store the indic
 function GetRandomPicIndex() {//function to check if the generated random index is not in the previousSetIndexes array
     choosenPic = [];
     while (choosenPic.length < 3) {
-        let randomIndex = Math.floor(Math.random() * 19);;
+        let randomIndex = Math.floor(Math.random() * 19);
         // Check if the randomIndex is already in the choosenPic array and not in the previousSetIndexes array.
         if (!choosenPic.includes(randomIndex) && !previousSetIndexes.includes(randomIndex)) {
             choosenPic.push(randomIndex);
@@ -67,7 +97,9 @@ function ifItHasTheSamePicIndexAndRenderPic() {
     for (let i = 0; i < 3; i++) {
         DisplayDiv.append(images[choosenPic[i]]);
         productObjects[choosenPic[i]].timesSeen++;
+
     }
+    localStorage.setItem('productObjects', JSON.stringify(productObjects));
     // Update previousSetIndexes with the current set of indices
     previousSetIndexes = choosenPic.slice();
 }
@@ -83,14 +115,14 @@ function ChoosenPicCounter() {
     timesClickedForTheDiv++;
     if (timesClickedForTheDiv > 25) {
         DisplayDiv.removeEventListener("click", ChoosenPicCounter);
-        DisplayDiv.innerHTML = '';
+
         let ViewResultsBtn = document.querySelector("#SubBtn");
         ViewResultsBtn.addEventListener("click", ResultsList);
     }
 }
 function ResultsList() {
-    
-    
+
+
     let ResultsContainer = document.createElement("ul");
     for (let i = 0; i < productObjects.length; i++) {
         let ListItems = document.createElement("li");
@@ -106,9 +138,9 @@ function ResultsList() {
     let ClicksArray = productObjects.map(image => image.timesClicked);
     let ViewsArray = productObjects.map(image => image.timesSeen);
     let NamesArray = productObjects.map(names => names.productName);
-    console.log("This maps an array from your objects' property of the amout of time each picture was clicked",ClicksArray);
-    console.log("This maps an array from your objects' property of the amout of time each picture was seen",ViewsArray);
-    console.log("This maps an array from your objects' property name",NamesArray);
+    //console.log("This maps an array from your objects' property of the amout of time each picture was clicked", ClicksArray);
+    //console.log("This maps an array from your objects' property of the amout of time each picture was seen", ViewsArray);
+    //console.log("This maps an array from your objects' property name", NamesArray);
 
 
 
@@ -122,11 +154,13 @@ function ResultsList() {
                 borderWidth: 1
             }, {
                 label: '# of Clicks',
-                data:ClicksArray,
+                data: ClicksArray,
                 borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
@@ -139,6 +173,21 @@ function ResultsList() {
 
 
 DisplayDiv.addEventListener("click", ChoosenPicCounter);
+
+
+//tryAgainBtn.removeEventListener("click", e);
+
+
+// //////////// Local Storage//////////////
+// let productObjectsItemStringifed = JSON.stringify(productObjects);
+
+// let productObjectsItem = localStorage.setItem('productObjects', productObjectsItemStringifed);
+
+// let gettingProductObjects = localStorage.getItem("productObjects")
+
+
+// let productObjectsParsed = JSON.parse(gettingProductObjects);
+// console.log(productObjectsParsed)
 
 
 
